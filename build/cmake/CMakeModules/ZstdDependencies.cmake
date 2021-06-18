@@ -14,7 +14,7 @@ function(setup_hpux_threads)
 endfunction()
 
 # Configure threading support
-if(ZSTD_MULTITHREAD_SUPPORT AND UNIX)
+if(ZSTD_MULTITHREAD_SUPPORT AND (UNIX OR ((MINGW OR MSVC) AND ZSTD_MULTITHREAD_WINXP_SUPPORT)))
     if(CMAKE_SYSTEM_NAME MATCHES "HP-UX")
         setup_hpux_threads()
     else()

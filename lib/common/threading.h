@@ -17,6 +17,15 @@
 #include "debug.h"
 
 #if defined(ZSTD_MULTITHREAD) && defined(_WIN32)
+# ifdef ZSTD_MULTITHREAD_WINXP_SUPPORT
+#  include <pthread.h>
+#  ifndef __WINPTHREADS_VERSION
+#   error winpthreads library is not available on your system
+#  endif
+# endif
+#endif
+
+#if defined(ZSTD_MULTITHREAD) && defined(_WIN32) && !defined(ZSTD_MULTITHREAD_WINXP_SUPPORT)
 
 /**
  * Windows minimalist Pthread Wrapper
